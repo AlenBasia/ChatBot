@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>MSc's Guru</title>
+<meta charset="UTF-8">
+<meta name="author" content="Alen Basia">
+<meta name="description" content="MSc's Guru ChatBot">
+<meta name="keywords" content="ChatBot,Chatterbot,Thesis,MastersBot">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+
+<!--GoogleFonts-->
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;500&display=swap" rel="stylesheet">
+
+<script src="https://code.jquery.com/jquery-3.2.1.js"
+		integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+		crossorigin="anonymous">
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header>
+	<a href="#"><h1>O Γκουρου του Μεταπτυχιακου</h1></a>
+</header>
+
+<!-- MAIN BODY -->
+<section class="mainbody">
+
+<!-- CHATTING SECTION -->
+<section class="chatbox">
+	
+	<div class="chatlist" id="chatList">
+		
+		<div class="chatbot-bubble">
+			Γεια σας! Είμαι ο Γκουρού του Μεταπτυχιακού. Πως μπορώ να σας βοηθήσω;<br>Στο κάτω μέρος της σελίδας θα βρείτε μερικές ερωτήσεις που μπορείτε να κάνετε.
+		</div>
+		
+		<!-- https://github.com/mukulkant/Star-rating-using-pure-css -->
+		<div class="rate" id="rates">
+			<!--form action="" method="post"-->
+				<input type="radio" id="star5" name="rate" value="5" onclick="rate5Star()"/><label for="star5" title="5 Αστέρια">5 stars</label>
+				<input type="radio" id="star4" name="rate" value="4" onclick="rate4Star()"/><label for="star4" title="4 Αστέρια">4 stars</label>
+				<input type="radio" id="star3" name="rate" value="3" onclick="rate3Star()"/><label for="star3" title="3 Αστέρια">3 stars</label>
+				<input type="radio" id="star2" name="rate" value="2" onclick="rate2Star()"/><label for="star2" title="2 Αστέρια">2 stars</label>
+				<input type="radio" id="star1" name="rate" value="1" onclick="rate1Star()"/><label for="star1" title="1 Αστέρι">1 star</label>
+			<!--/form-->
+		</div>
+		
+		<!-- Keep chat scolled down -->
+	​	<script>
+			function scrollToEnd(){
+				var chatList = document.getElementById("chatList");
+				chatList.scrollTop = chatList.scrollHeight;
+			}
+			scrollToEnd();
+		</script>
+
+	</div>
+
+	<div class="chatinput">
+		<input type="text" name="userin" id="userin" placeholder="Αα" class="userinput" autocomplete="off"/>
+		<input type="submit" value="Ερώτηση" class="submitinput" id="submitBtn" onclick="questionServer()"/>
+	</div>
+	
+	<!-- Add ENTER event listener -->
+	<script>
+		var input = document.getElementById("userin");
+		input.addEventListener("keyup", function(event) {
+			if (event.keyCode === 13) {
+			event.preventDefault();
+			document.getElementById("submitBtn").click();
+		}
+		});
+	</script>
+	
+</section>
+
+<section id="questions">
+
+	<button type="button" class="collapsible">Γενικές πληροφορίες</button>
+	<div class="content">
+		<br>
+		<p>
+			<h4>Γενικές πληροφορίες σχετικά με το μεταπτυχιακό &ldquo;Διαδραστικές Τεχνολογίες Υλικού και Λογισμικού&rdquo;</h4>
+			<ul>
+				<li>Πως λέγεται το μεταπτυχιακό;</li>
+				<li>Ποια είναι η ιστοσελίδα του μεταπτυχιακού;</li>
+				<li>Ποιος είναι ο στόχος του μεταπτυχιακού;</li>
+				<li>Σε ποιους απευθύνεται</li>
+				<li>Ποιος είναι ο αριθμός εισακτέων;</li>
+				<li>Ποια είναι τα κριτήρια επιλογής;</li>
+				<li>Ποια είναι η διάρκεια φοίτησης;</li>
+				<li>Πόσα είναι τα τέλη φοίτησης;</li>
+			</ul>
+		</p>
+		<br>	
+	</div>
+	<button type="button" class="collapsible">Πληροφορίες επικοινωνίας</button>
+	<div class="content">
+		<br>
+		<p>
+			<h4>Πληροφορίες επικοινωνίας με την γραμματεία και τους καθηγητές</h4>
+			<ul>
+				<li>Πως μπορώ να επικοινωνήσω με την γραμματεία;</li>
+				<li>Email γραμματείας</li>
+				<li>Τηλέφωνο γραμματείας</li>
+				<li>Πως μπορώ να επικοινωνήσω με τον &lt;όνομα καθηγητή&gt;</li>
+				<li>Email του &lt;όνομα καθηγητή&gt;</li>
+				<li>Τηλέφωνο του &lt;όνομα καθηγητή&gt;</li>
+			</ul>
+		</p>
+		<br>	
+	</div>
+	<button type="button" class="collapsible">Πληροφορίες σχετικά με τα μαθήματα</button>
+	<div class="content">
+		<br>
+		<p>
+			<h4>Πληροφορίες σχετικά με τα μαθήματα του μεταπτυχιακού</h4>
+			<ul>
+				<li>Ποια είναι τα μαθήματα που προσφέρονται στους φοιτητές;</li>
+				<li>Πόσα μαθήματα πρέπει να παρακολουθήσω;</li>
+				<li>Περισσότερες πληροφορίες για τα μαθήματα</li>
+				<li>Τόπος διεξαγωγής μαθημάτων</li>
+				<li>ECTS μαθημάτων</li>
+				<li>ECTS διπλωματικής εργασίας</li>
+				<li>Πόσα ECTS έχει το μάθημα &lt;όνομα μαθήματος&gt;;</li>
+				<li>Ποιος καθηγητής διδάσκει το μάθημα &lt;όνομα μαθήματος&gt;;</li>
+				<li>Που γίνονται οι εξετάσεις;</li>
+				<li>Ποιοι είναι οι καθηγητές του μεταπτυχιακού;</li>
+				<li>Ποια μαθήματα διδάσκει ο καθηγητής &lt;όνομα καθηγητή&gt;;</li>
+			</ul>
+		</p>
+		<br>	
+	</div>
+	
+	<!-- Collapsible https://www.w3schools.com/howto/howto_js_collapsible.asp-->
+	<script>
+		var coll = document.getElementsByClassName("collapsible");
+		var i;
+
+		for (i = 0; i < coll.length; i++) {
+			coll[i].addEventListener("click", function() {
+			this.classList.toggle("active");
+			var content = this.nextElementSibling;
+			if (content.style.maxHeight){
+				content.style.maxHeight = null;
+			} else {
+				content.style.maxHeight = content.scrollHeight + "px";
+			} 
+			});
+		}
+	</script>
+
+</section>
+
+</section>
+
+</body>
+</html>
+
+<!-- Communicate with the bot -->
+<script>
+	var id = -1;
+	var lastResponse = "";
+	
+	function questionServer(){
+		var parentDiv = document.getElementById("chatList")
+		var userInput = document.getElementById("userin").value;
+		var ratingDiv = document.getElementById("rates");
+		var packToSend = {type: "question", input: userInput, id:"None"}; 
+		parentDiv.removeChild(ratingDiv);
+		parentDiv.innerHTML += '<div class="user-bubble">' + userInput + '</div>' ;
+		document.getElementById("userin").value = "";
+		
+		$.ajax({
+        type: "POST", 
+        url: "processjson",
+        data : JSON.stringify(packToSend),
+        contentType: "application/json",
+		success: function(result)
+		{result = JSON.parse(result);
+		lastResponse=result.response; 
+		id=result.id;
+		parentDiv.innerHTML += '<div class="chatbot-bubble">' + lastResponse + '</div>' ;
+		parentDiv.appendChild(ratingDiv);
+		enableStars();
+		scrollToEnd();},
+		error: function(err)
+		{lastResponse="Ο Γκουρού δεν μπορεί να επικοινωνήσει με τα πνεύματα για να σας απαντήσει."; 
+		id=-1;
+		parentDiv.innerHTML += '<div class="chatbot-bubble">' + lastResponse + '</div>' ;
+		parentDiv.appendChild(ratingDiv);
+		enableStars();
+		scrollToEnd();},
+		});
+	}
+	
+	function rate5Star(){
+		var packToSend = {type: "rating", input: "5", id: id};
+		if (id>-1){
+			$.ajax({
+			type: "POST", 
+			url: "processjson",
+			data : JSON.stringify(packToSend),
+			contentType: "application/json",
+			success: function(result)
+			{disableStars();},
+			error: function(err)
+			{alert("Ο Γκουρού δεν μπόρεσε να αποθηκεύσει την αξιολόγηση σας.")},
+			});
+		} else {
+			alert("Δεν μπορείτε να αξιολογήσετε αυτό το μήνυμα.");
+			}
+	}
+	
+	function rate4Star(){
+		var packToSend = {type: "rating", input: "4", id: id};
+		if (id>-1){
+			$.ajax({
+			type: "POST", 
+			url: "processjson",
+			data : JSON.stringify(packToSend),
+			contentType: "application/json",
+			success: function(result)
+			{disableStars();},
+			error: function(err)
+			{alert("Ο Γκουρού δεν μπόρεσε να αποθηκεύσει την αξιολόγηση σας.")},
+			});
+		} else {
+			alert("Δεν μπορείτε να αξιολογήσετε αυτό το μήνυμα.");
+			}
+	}
+	
+	function rate3Star(){
+		var packToSend = {type: "rating", input: "3", id: id};
+		if (id>-1){
+			$.ajax({
+			type: "POST", 
+			url: "processjson",
+			data : JSON.stringify(packToSend),
+			contentType: "application/json",
+			success: function(result)
+			{disableStars();},
+			error: function(err)
+			{alert("Ο Γκουρού δεν μπόρεσε να αποθηκεύσει την αξιολόγηση σας.")},
+			});
+		} else {
+			alert("Δεν μπορείτε να αξιολογήσετε αυτό το μήνυμα.");
+			}
+	}
+	
+	function rate2Star(){
+		var packToSend = {type: "rating", input: "2", id: id};
+		if (id>-1){
+			$.ajax({
+			type: "POST", 
+			url: "processjson",
+			data : JSON.stringify(packToSend),
+			contentType: "application/json",
+			success: function(result)
+			{disableStars();},
+			error: function(err)
+			{alert("Ο Γκουρού δεν μπόρεσε να αποθηκεύσει την αξιολόγηση σας.")},
+			});
+		} else {
+			alert("Δεν μπορείτε να αξιολογήσετε αυτό το μήνυμα.");
+			}
+	}
+	
+	function rate1Star(){
+		var packToSend = {type: "rating", input: "1", id: id};
+		if (id>-1){
+			$.ajax({
+			type: "POST", 
+			url: "processjson",
+			data : JSON.stringify(packToSend),
+			contentType: "application/json",
+			success: function(result)
+			{disableStars();},
+			error: function(err)
+			{alert("Ο Γκουρού δεν μπόρεσε να αποθηκεύσει την αξιολόγηση σας.")},
+			});
+		} else {
+			alert("Δεν μπορείτε να αξιολογήσετε αυτό το μήνυμα.");
+			}
+	}
+	
+	function disableStars(){
+		document.getElementById("star5").disabled = true;
+		document.getElementById("star4").disabled = true;
+		document.getElementById("star3").disabled = true;
+		document.getElementById("star2").disabled = true;
+		document.getElementById("star1").disabled = true;
+	}
+	
+	function enableStars(){
+		document.getElementById("star5").disabled = false;
+		document.getElementById("star4").disabled = false;
+		document.getElementById("star3").disabled = false;
+		document.getElementById("star2").disabled = false;
+		document.getElementById("star1").disabled = false;
+		document.getElementById("star5").checked = false;
+		document.getElementById("star4").checked = false;
+		document.getElementById("star3").checked = false;
+		document.getElementById("star2").checked = false;
+		document.getElementById("star1").checked = false;
+	}
+	
+</script>

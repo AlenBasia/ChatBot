@@ -1,0 +1,339 @@
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+html {
+	scroll-behavior: smooth;
+	/*scroll-padding: 90px;*/
+	height: 100%;
+}
+
+body {
+	background-color: #CCCCCC; /*GRAY X11*/
+	
+	height: 100%;
+	margin: 0;
+	
+	/*Offset page 90px from top*/
+	margin-top: 90px;
+	overflow: hidden;
+}
+
+hr {
+	border-top: 1px solid black;
+}
+
+/*HEADER*/
+header {
+	background-color: #333333; /*DARK CHARCOAL*/
+	box-shadow: 0px 0px 40px 0px rgba(67,67,67,0.75);
+	/*box-shadow: 0 2px 7px 0 rgba(32, 33, 36, 0.28);*/
+	
+	/*Sticky HEADER*/
+	position: fixed;
+	top: 0;
+	width: 100%;
+	height: 90px;
+}
+
+header a {
+	all: unset;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+header h1 {
+	padding-top: 25px;
+	padding-bottom: 25px;
+	text-align: center;
+	/*color: #D1D1D1;*/
+	color: #EBEBEB;
+	text-transform: uppercase;
+	letter-spacing: 3px;
+	font-family: 'Open Sans Condensed', sans-serif;
+	/*font-family: 'Roboto Slab', serif;*/
+}
+/*Endof HEADER*/
+
+/*MAINBODY*/
+.mainbody {
+	height: calc(100% - 90px);
+	overflow-y: auto;
+	padding-bottom: 25px;
+}
+/*Endof MAINBODY*/
+
+/*CHAT SECTION*/
+.chatbox * {
+	font-family: 'Roboto Slab', serif;
+	font-size: 14px;
+	font-weight: 500;
+}
+
+.chatbox {
+	margin-top: 5%;
+	margin-bottom: 5%;
+	margin-left: 15%;
+	margin-right: 15%;
+	
+	color: #FFFFFF;
+	
+	background-color: #DDDDDD; /*GRAINSBORO*/
+	/*background-color: #F2F2F2; /*ANTI-FLASH WHITE*/
+	border: 5px solid #708090; /*SLATE GRAY*/
+	
+	border-radius: 8px;
+	
+	padding: 0;
+	
+	/*fixed size*/
+	height: 400px;
+}
+
+.chatlist {
+	margin: 0;
+	padding-top: 5px;
+	height: calc(100% - 59px);
+	overflow-y: auto;
+	
+	box-shadow: 0px 0px 15px 0px rgba(67,67,67,0.75) inset;
+}
+
+.chatbot-bubble {
+	margin: 10px 0 0 50px;
+	min-height: 39px;
+	width: fit-content;
+	max-width: 60%;
+	padding: 15px;
+	position: relative;
+	background: #ADADAD; /*SILVER CHALICE*/
+	border-radius: 8px;
+	clear: both;
+}
+
+.chatbot-bubble:after {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 50%;
+	width: 0;
+	height: 0;
+	border: 20px solid transparent;
+	border-right-color: #ADADAD; /*SILVER CHALICE*/
+	border-left: 0;
+	border-bottom: 0;
+	margin-top: -10px;
+	margin-left: -20px;
+}
+
+.user-bubble {
+	margin: 10px 50px 15px 0;
+	float:right;
+	min-height: 39px;
+	width: fit-content;
+	max-width: 60%;
+	padding: 15px;
+	position: relative;
+	background: #708090; /*SLATE GRAY*/
+	border-radius: 8px;
+	clear: both;
+}
+
+.user-bubble:after {
+	content: '';
+	position: absolute;
+	right: 0;
+	top: 50%;
+	width: 0;
+	height: 0;
+	border: 20px solid transparent;
+	border-left-color: #708090; /*SLATE GRAY*/
+	border-right: 0;
+	border-bottom: 0;
+	margin-top: -10px;
+	margin-right: -20px;
+}
+
+/*RATE https://github.com/mukulkant/Star-rating-using-pure-css*/
+.rate {
+    float: left;
+	margin-left: 50px;
+    height: 46px;
+    padding: 0 10px;
+}
+
+.rate:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
+}
+
+.rate:not(:checked) > label {
+    float:right;
+    width:1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:30px;
+    color:#ccc;
+}
+
+.rate:not(:checked) > label:before {
+    content: '★ ';
+}
+
+.rate > input:checked ~ label {
+    color: #ffc700;    
+}
+
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+    color: #deb217;  
+}
+
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
+    color: #c59b08;
+}
+/*Endof RATE https://github.com/mukulkant/Star-rating-using-pure-css*/
+
+.chatinput {
+	/*padding: 20px 5px 20px 5px;*/
+}
+
+.inputform {
+	/*position: relative;*/
+}
+
+.userinput {
+	margin: 0;
+	padding: 20px 20px 20px 20px;
+	float: left;
+	width: 80%;
+	background-color: #DDDDDD; /*GRAINSBORO*/
+	
+	border: 0px;
+	border-bottom-left-radius: 2px;
+	
+	color: #484747;
+}
+
+.userinput:focus {
+	outline: none;
+}
+
+.submitinput {
+	margin: 0;
+	padding: 20px 20px 20px 20px;
+	float: right;
+	width: 20%;
+	background-color: #8B8B81; /*MIDDLE GRAY*/
+	
+	border: 0px;
+	border-bottom-right-radius: 2px;
+	
+	cursor: pointer;
+}
+
+.submitinput:focus {
+	outline: none;
+	border-bottom-right-radius: 2px;
+	background-color: #AEAEA7;
+}
+
+.submitinput:hover {
+	color: #FFFFFF;
+	background-color: DCDCD9;
+}
+/*Endof CHAT SECTION*/
+
+/*HELP QUESTIONS SECTION*/
+/*Collapsible https://www.w3schools.com/howto/howto_js_collapsible.asp*/
+.collapsible {
+	margin-left: 10%;
+	margin-right: 10%;
+	
+	min-height: 50px;
+	width: 80%;
+	
+	background-color: #333333; /*DARK CHARCOAL*/
+	color: #FFFFFF;
+	cursor: pointer;
+	padding: 18px 32px 18px 32px;
+	border: none;
+	text-align: left;
+	outline: none;
+	
+	font-family: 'Roboto Slab', serif;
+	font-size: 18px;
+	font-weight: 300;
+	
+	box-shadow: 0px 0px 15px 0px rgba(67,67,67,0.75);
+}
+
+.active, .collapsible:hover {
+	background-color: #555;
+}
+
+.collapsible:after {
+	content: '\2795';
+	color: white;
+	font-weight: bold;
+	float: right;
+	margin-left: 5px;
+	transition: 0.2s ease-out;
+}
+
+.active:after {
+	transform: rotate(45deg);
+}
+
+.content {
+	margin-left: 10%;
+	margin-right: 10%;
+	
+	padding: 0 20px;
+	max-height: 0;
+	overflow: hidden;
+	transition: max-height 0.2s ease-out;
+	
+	background-color: #DDDDDD; /*GRAINSBORO*/
+	box-shadow: 0px 0px 15px 0px rgba(67,67,67,0.75);
+	
+	font-family: 'Roboto Slab', serif;
+}
+
+.content ul {
+	margin: 20px 25px 20px 25px;
+	
+	font-family: 'Roboto Slab', serif;
+	font-size: 13px;
+}
+/*Endof HELP QUESTIONS SECTION*/
+
+/* Designing for scroll-bar */ 
+        ::-webkit-scrollbar { 
+            width: 8px; 
+        } 
+      
+        /* Track */ 
+        ::-webkit-scrollbar-track { 
+            background: #C5C5C5; /*SILVER SAND*/
+            border-radius: 5px; 
+			-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+        } 
+      
+        /* Handle */ 
+        ::-webkit-scrollbar-thumb { 
+            background: #8B8B81; /*MIDDLE GREY*/
+            border-radius: 5px; 
+        } 
+      
+        /* Handle on hover */ 
+        ::-webkit-scrollbar-thumb:hover { 
+            background: #999999; /*SPANISH GRAY*/
+        } 
