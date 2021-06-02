@@ -26,14 +26,47 @@
 
 <!-- HEADER -->
 <header>
-	<a href="#"><h1>O Γκουρου του Μεταπτυχιακου</h1></a>
+	<a href="#"><h1>O Γκουρου του Μεταπτυχιακου</h1><h5>(A Chatting Bot)</h5></a>
+	
 </header>
+
+<!-- INFORMING DIALOG -->
+<div id="myDialog" class="mydialog">
+	<!--span class="mydialogclose">&times;</span-->
+  <div class="mydialogcontent">
+	<h3>Ενημέρωση Χρήσης Δεδομένων</h3><hr style="border-top: 2px solid black;"><br>
+	<ul><li>Οι ερωτήσεις και οι αξιολογήσεις που πραγματοποιούνται αποθηκεύονται με σκοπό την βελτίωση του Bot.</li><br><li>Δεν αποθηκεύονται προσωπικά σας στοιχεία.</li></ul>
+	<input type="submit" value="Εντάξει!" class="mydialogclose" id="mydialogclose" onclick="closedialog()"/>
+  </div>
+</div>
+
+<script>
+	var mydialog = document.getElementById("myDialog");
+	
+	setTimeout(function(){
+		mydialog.style.display = "block";
+	}, 2000);
+
+	//var span = document.getElementsByClassName("mydialogclose")[0];
+	
+	//}
+	// When the user clicks anywhere outside of the modal, close it
+	//window.onclick = function(event) {
+	//	if (event.target == mydialog) {
+	//		mydialog.style.display = "none";
+	//	}
+	//}
+	// When the user clicks the button close the dialog
+	function closedialog(){
+		mydialog.style.display = "none";
+	}
+</script>
 
 <!-- MAIN BODY -->
 <section class="mainbody">
 
 <!-- CHATTING SECTION -->
-<section class="chatbox">
+<section class="chatbox" id="gurubot">
 	
 	<div class="chatlist" id="chatList">
 		
@@ -89,14 +122,14 @@
 		<p>
 			<h4>Γενικές πληροφορίες σχετικά με το μεταπτυχιακό &ldquo;Διαδραστικές Τεχνολογίες Υλικού και Λογισμικού&rdquo;</h4>
 			<ul>
-				<li>Πως λέγεται το μεταπτυχιακό;</li>
-				<li>Ποια είναι η ιστοσελίδα του μεταπτυχιακού;</li>
-				<li>Ποιος είναι ο στόχος του μεταπτυχιακού;</li>
+				<li>Τίτλος</li>
+				<li>Ιστοσελίδα</li>
+				<li>Στόχος</li>
 				<li>Σε ποιους απευθύνεται</li>
-				<li>Ποιος είναι ο αριθμός εισακτέων;</li>
-				<li>Ποια είναι τα κριτήρια επιλογής;</li>
-				<li>Ποια είναι η διάρκεια φοίτησης;</li>
-				<li>Πόσα είναι τα τέλη φοίτησης;</li>
+				<li>Αριθμός εισακτέων</li>
+				<li>Κριτήρια επιλογής</li>
+				<li>Διάρκεια φοίτησης</li>
+				<li>Δίδακτρα</li>
 			</ul>
 		</p>
 		<br>	
@@ -105,14 +138,14 @@
 	<div class="content">
 		<br>
 		<p>
-			<h4>Πληροφορίες επικοινωνίας με την γραμματεία και τους καθηγητές</h4>
+			<h4>Πληροφορίες επικοινωνίας με την γραμματεία / καθηγητές</h4>
 			<ul>
-				<li>Πως μπορώ να επικοινωνήσω με την γραμματεία;</li>
+				<li>Επικοινωνία με τη γραμματεία</li>
 				<li>Email γραμματείας</li>
 				<li>Τηλέφωνο γραμματείας</li>
-				<li>Πως μπορώ να επικοινωνήσω με τον &lt;όνομα καθηγητή&gt;</li>
-				<li>Email του &lt;όνομα καθηγητή&gt;</li>
-				<li>Τηλέφωνο του &lt;όνομα καθηγητή&gt;</li>
+				<li>Επικοινωνία με τον καθηγητή &lt;όνομα καθηγητή&gt;</li>
+				<li>Email του καθηγητή &lt;όνομα καθηγητή&gt;</li>
+				<li>Τηλέφωνο του καθηγητή &lt;όνομα καθηγητή&gt;</li>
 			</ul>
 		</p>
 		<br>	
@@ -123,17 +156,17 @@
 		<p>
 			<h4>Πληροφορίες σχετικά με τα μαθήματα του μεταπτυχιακού</h4>
 			<ul>
-				<li>Ποια είναι τα μαθήματα που προσφέρονται στους φοιτητές;</li>
-				<li>Πόσα μαθήματα πρέπει να παρακολουθήσω;</li>
+				<li>Μαθήματα</li>
+				<li>Αριθμός μαθημάτων</li>
 				<li>Περισσότερες πληροφορίες για τα μαθήματα</li>
 				<li>Τόπος διεξαγωγής μαθημάτων</li>
 				<li>ECTS μαθημάτων</li>
 				<li>ECTS διπλωματικής εργασίας</li>
-				<li>Πόσα ECTS έχει το μάθημα &lt;όνομα μαθήματος&gt;;</li>
-				<li>Ποιος καθηγητής διδάσκει το μάθημα &lt;όνομα μαθήματος&gt;;</li>
-				<li>Που γίνονται οι εξετάσεις;</li>
-				<li>Ποιοι είναι οι καθηγητές του μεταπτυχιακού;</li>
-				<li>Ποια μαθήματα διδάσκει ο καθηγητής &lt;όνομα καθηγητή&gt;;</li>
+				<li>ECTS του μαθήματος &lt;όνομα μαθήματος&gt;</li>
+				<li>Καθηγητής μαθήματος &lt;όνομα μαθήματος&gt;</li>
+				<li>Χώρος διεξαγωγής εξετάσεων</li>
+				<li>Καθηγητές</li>
+				<li>Μαθήματα του καθηγητή &lt;όνομα καθηγητή&gt;</li>
 			</ul>
 		</p>
 		<br>	

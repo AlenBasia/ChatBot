@@ -27,7 +27,7 @@ hr {
 
 /*HEADER*/
 header {
-	background-color: #333333; /*DARK CHARCOAL*/
+	background-color: #708090; /*SLATE GRAY*//*#333333; /*DARK CHARCOAL*/
 	box-shadow: 0px 0px 40px 0px rgba(67,67,67,0.75);
 	/*box-shadow: 0 2px 7px 0 rgba(32, 33, 36, 0.28);*/
 	
@@ -45,8 +45,8 @@ header a {
 }
 
 header h1 {
-	padding-top: 25px;
-	padding-bottom: 25px;
+	padding-top: 15px;
+	padding-bottom: 0px;
 	text-align: center;
 	/*color: #D1D1D1;*/
 	color: #EBEBEB;
@@ -55,6 +55,15 @@ header h1 {
 	font-family: 'Open Sans Condensed', sans-serif;
 	/*font-family: 'Roboto Slab', serif;*/
 }
+
+header h5 {
+	text-align: center;
+	color: #EBEBEB;
+	letter-spacing: 2px;
+	font-family: 'Open Sans Condensed', sans-serif;
+	font-size: 0.9em;
+}
+
 /*Endof HEADER*/
 
 /*MAINBODY*/
@@ -68,7 +77,7 @@ header h1 {
 /*CHAT SECTION*/
 .chatbox * {
 	font-family: 'Roboto Slab', serif;
-	font-size: 14px;
+	font-size: 15px;
 	font-weight: 500;
 }
 
@@ -78,9 +87,11 @@ header h1 {
 	margin-left: 15%;
 	margin-right: 15%;
 	
-	color: #FFFFFF;
+	/*color: #FFFFFF;*/
+	color: #000;
 	
-	background-color: #DDDDDD; /*GRAINSBORO*/
+	/*background-color: #DDDDDD; /*GRAINSBORO*/
+	background-color: #fcfcfc;
 	/*background-color: #F2F2F2; /*ANTI-FLASH WHITE*/
 	border: 5px solid #708090; /*SLATE GRAY*/
 	
@@ -108,7 +119,8 @@ header h1 {
 	max-width: 60%;
 	padding: 15px;
 	position: relative;
-	background: #ADADAD; /*SILVER CHALICE*/
+	/*background: #ADADAD; /*SILVER CHALICE*/
+	background: #ededed;
 	border-radius: 8px;
 	clear: both;
 }
@@ -121,11 +133,16 @@ header h1 {
 	width: 0;
 	height: 0;
 	border: 20px solid transparent;
-	border-right-color: #ADADAD; /*SILVER CHALICE*/
+	/*border-right-color: #ADADAD; /*SILVER CHALICE*/
+	border-right-color: #e6e6e6;
 	border-left: 0;
 	border-bottom: 0;
 	margin-top: -10px;
 	margin-left: -20px;
+}
+
+.chatbot-bubble,οl,li{
+	margin-left: 25px;
 }
 
 .user-bubble {
@@ -136,7 +153,8 @@ header h1 {
 	max-width: 60%;
 	padding: 15px;
 	position: relative;
-	background: #708090; /*SLATE GRAY*/
+	/*background: #708090; /*SLATE GRAY*/
+	background: #c1dcf7;
 	border-radius: 8px;
 	clear: both;
 }
@@ -149,7 +167,8 @@ header h1 {
 	width: 0;
 	height: 0;
 	border: 20px solid transparent;
-	border-left-color: #708090; /*SLATE GRAY*/
+	/*border-left-color: #708090; /*SLATE GRAY*/
+	border-left-color: #c1dcf7;
 	border-right: 0;
 	border-bottom: 0;
 	margin-top: -10px;
@@ -214,7 +233,8 @@ header h1 {
 	padding: 20px 20px 20px 20px;
 	float: left;
 	width: 80%;
-	background-color: #DDDDDD; /*GRAINSBORO*/
+	/*background-color: #DDDDDD; /*GRAINSBORO*/
+	background-color: #F2F2F2; /*ANTI-FLASH WHITE*/
 	
 	border: 0px;
 	border-bottom-left-radius: 2px;
@@ -231,7 +251,8 @@ header h1 {
 	padding: 20px 20px 20px 20px;
 	float: right;
 	width: 20%;
-	background-color: #8B8B81; /*MIDDLE GRAY*/
+	/*background-color: #919899;/*#8B8B81; /*MIDDLE GRAY*/
+	background-color: #becbcc;
 	
 	border: 0px;
 	border-bottom-right-radius: 2px;
@@ -260,7 +281,7 @@ header h1 {
 	min-height: 50px;
 	width: 80%;
 	
-	background-color: #333333; /*DARK CHARCOAL*/
+	background-color: #708090; /*SLATE GRAY*//*#333333; /*DARK CHARCOAL*/
 	color: #FFFFFF;
 	cursor: pointer;
 	padding: 18px 32px 18px 32px;
@@ -276,7 +297,7 @@ header h1 {
 }
 
 .active, .collapsible:hover {
-	background-color: #555;
+	background-color: #263545;/*#555;*/
 }
 
 .collapsible:after {
@@ -311,7 +332,7 @@ header h1 {
 	margin: 20px 25px 20px 25px;
 	
 	font-family: 'Roboto Slab', serif;
-	font-size: 13px;
+	font-size: 15px;
 }
 /*Endof HELP QUESTIONS SECTION*/
 
@@ -337,3 +358,58 @@ header h1 {
         ::-webkit-scrollbar-thumb:hover { 
             background: #999999; /*SPANISH GRAY*/
         } 
+		
+/*POPUP WHEN ENTERING SITE*/
+@keyframes fromtop{from{top:-300px;opacity:0} to{top:0;opacity:1}}
+.mydialog {
+	display: none;
+	position: fixed;
+	z-index: 1; /* Sit on top */
+	padding-top: 250px;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%; 
+	overflow: auto;
+	background-color: rgba(0,0,0,0.4);
+	
+	font-family: 'Roboto Slab', serif;
+	font-size: 15px;
+	font-weight: 500;
+}
+
+.mydialogcontent {
+	background-color: #fafafa;
+	margin: auto;
+	padding: 25px;
+	
+	border: 5px solid #becbcc;
+	border-radius: 8px;
+	
+	width: 50%;
+	top: 0;
+	overflow: auto;
+	
+	animation: fromtop 1s;
+}
+
+.mydialogclose {
+	padding: 10px 20px 10px 20px;
+	background-color: #becbcc;
+	border: 2px solid #becbcc;
+	border-radius: 50em;
+	float: right;
+	/*vertical-align: bottom;*/
+	
+	color: #000;
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.mydialogclose:hover,
+.mydialogclose:focus {
+	color: #000;
+	background-color: #fff;
+	text-decoration: none;
+	cursor: pointer;
+}

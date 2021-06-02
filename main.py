@@ -7,6 +7,7 @@ from flask import Flask, render_template, request, Markup, redirect, url_for, js
 import json
 
 import logging
+from log.mylogger import *
 
 logging.basicConfig(level=logging.INFO)
 
@@ -19,6 +20,12 @@ def question_request(question):
     '''
 
     response = chatbot.get_response(question)
+
+    #LOG TO FILES
+    tolog = allLogs(response[0], response[1])
+    #if the answer is the default
+    if response[1].id == None:
+        tofailedlog = notAnsweredLogs(response[0])
     
     return response
 
@@ -45,7 +52,8 @@ def rating_request(myrate,response):
             response[1].id = None
 
             #learn response
-            chatbot.learn_response(response[0])
+            '''chatbot.learn_response(response[0])'''
+            chatbot.storage.create(**response[0].serialize())
             chatbot.storage.create(**response[1].serialize())
                 
             #save rating to the new statement
@@ -55,6 +63,9 @@ def rating_request(myrate,response):
         elif myrate > 0:
             #save rating to the response
             chatbot.storage.updateRating(response[1].id,myrate)
+            #LOG TO LOW RATED
+            tolowratedlog = lowRatedLogs(response[0], response[1], response[1].id, myrate)
+            
         rated = True
 
     else:
@@ -72,7 +83,7 @@ def rating_request(myrate,response):
 #create a bot
 chatbot = ChatBot("MSc's Guru",
                   storage_adapter='mybot.mysql_storage.SQLStorageAdapter',
-                  preprocessors=['mybot.mypreprocessors.final_sigma','chatterbot.preprocessors.clean_whitespace','mybot.mypreprocessors.remove_questionmark'],
+                  #preprocessors=['mybot.mypreprocessors.final_sigma','chatterbot.preprocessors.clean_whitespace','mybot.mypreprocessors.remove_questionmark'],
                   logic_adapters=[
                 {
                     'import_path': 'mybot.mybest_match.BestMatch',

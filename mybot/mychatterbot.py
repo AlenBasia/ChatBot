@@ -22,7 +22,7 @@ class ChatBot(object):
         storage_adapter = kwargs.get('storage_adapter', 'chatterbot.storage.SQLStorageAdapter')
 
         logic_adapters = kwargs.get('logic_adapters', [
-            'chatterbot.logic.BestMatch'
+            'mybot.mybest_match.BestMatch'
         ])
 
         # Check that each adapter is a valid subclass of it's respective parent
@@ -156,7 +156,10 @@ class ChatBot(object):
             # Save the response generated for the input
             self.storage.create(**response.serialize())
 
-
+        #in_response_to tag for result
+        if not response.search_in_response_to and response.in_response_to:
+            response.search_in_response_to = self.storage.tagger.get_bigram_pair_string(response.in_response_to)
+            
         #ExtraResponse Contains the input too
         extraResponse = [] #a list
         extraResponse.append(input_statement) #First item is the input_statement

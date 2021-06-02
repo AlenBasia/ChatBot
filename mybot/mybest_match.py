@@ -38,19 +38,19 @@ class BestMatch(LogicAdapter):
             '''# Stop searching if a match that is close enough is found
             if result.confidence >= self.maximum_similarity_threshold:
                 closest_match = result
-                break
-                ''''''
-            if result.confidence > closest_match.confidence:
+                break'''
+                
+            '''if result.confidence > closest_match.confidence:
                 closest_match = result
                 if result.confidence >= self.maximum_similarity_threshold:
-                    break
-            '''
+                    break'''
+            
 
         self.chatbot.logger.info('Using "{}" as a close match to "{}" with a confidence of {}'.format(
             closest_match.text, input_statement.text, closest_match.confidence
         ))
 
-        recent_repeated_responses = filters.get_recent_repeated_responses(
+        '''recent_repeated_responses = filters.get_recent_repeated_responses(
             self.chatbot,
             input_statement.conversation
         )
@@ -58,11 +58,12 @@ class BestMatch(LogicAdapter):
         for index, recent_repeated_response in enumerate(recent_repeated_responses):
             self.chatbot.logger.info('{}. Excluding recent repeated response of "{}"'.format(
                 index, recent_repeated_response
-            ))
+            ))'''
 
         response_selection_parameters = {
             'search_in_response_to': closest_match.search_text,
-            'exclude_text': recent_repeated_responses,
+            #'in_response_to': closest_match.in_response_to,
+            #'exclude_text': recent_repeated_responses,
             'exclude_text_words': self.excluded_words
         }
 
@@ -70,7 +71,7 @@ class BestMatch(LogicAdapter):
             'search_in_response_to': self.chatbot.storage.tagger.get_bigram_pair_string(
                 input_statement.text
             ),
-            'exclude_text': recent_repeated_responses,
+            #'exclude_text': recent_repeated_responses,
             'exclude_text_words': self.excluded_words
         }
 
