@@ -8,6 +8,7 @@ import json
 
 import logging
 from log.mylogger import *
+import time
 
 logging.basicConfig(level=logging.INFO)
 
@@ -19,10 +20,15 @@ def question_request(question):
     Returns a list with 2 Statements [input_statement, output_statement]
     '''
 
+    start = time.time()
+    
     response = chatbot.get_response(question)
 
+    end = time.time()
+    elapsedTime = end - start
+
     #LOG TO FILES
-    tolog = allLogs(response[0], response[1])
+    tolog = allLogs(response[0], response[1], elapsedTime)
     #if the answer is the default
     if response[1].id == None:
         tofailedlog = notAnsweredLogs(response[0])

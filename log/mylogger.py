@@ -4,7 +4,7 @@ from datetime import datetime
 These functions are used to create log files and append them
 """
 
-def allLogs(userinput, response):
+def allLogs(userinput, response, elapsedtime):
     """
     This function is used to log the users' inputs and the responses they get.
     A file is created or if exists appends it.
@@ -17,7 +17,7 @@ def allLogs(userinput, response):
         The response that the user got
     :type response: string
     """
-    line = "Time: {}    ||  Input: {}   ||  Response: {}\n\n".format(datetime.now(),userinput, response)
+    line = "Time: {}    ||  Input: {}   ||  Response: {}    ||  ResponseTime: {}\n\n".format(datetime.now(),userinput, response, elapsedtime)
     try:
         with open("log/dialogs.log", 'a') as file:
             file.write(line)
