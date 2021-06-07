@@ -208,9 +208,19 @@
 		var userInput = document.getElementById("userin").value;
 		var ratingDiv = document.getElementById("rates");
 		var packToSend = {type: "question", input: userInput, id:"None"}; 
+		//remove rating stars
 		parentDiv.removeChild(ratingDiv);
+		//append chatList with users input
 		parentDiv.innerHTML += '<div class="user-bubble">' + userInput + '</div>' ;
+		//remove input that was submitted
 		document.getElementById("userin").value = "";
+		
+		//Show loading link: https://tobiasahlin.com/spinkit/
+		var loading = '<div class="chatbot-bubble"><div class="spinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div></div>'
+		parentDiv.innerHTML += loading ;
+		setTimeout(function() {
+		
+		}, 2000);
 		
 		$.ajax({
         type: "POST", 
@@ -221,6 +231,7 @@
 		{result = JSON.parse(result);
 		lastResponse=result.response; 
 		id=result.id;
+		parentDiv.lastChild.remove();
 		parentDiv.innerHTML += '<div class="chatbot-bubble">' + lastResponse + '</div>' ;
 		parentDiv.appendChild(ratingDiv);
 		enableStars();
@@ -228,6 +239,7 @@
 		error: function(err)
 		{lastResponse="Ο Γκουρού δεν μπορεί να επικοινωνήσει με τα πνεύματα για να σας απαντήσει."; 
 		id=-1;
+		parentDiv.lastChild.remove();
 		parentDiv.innerHTML += '<div class="chatbot-bubble">' + lastResponse + '</div>' ;
 		parentDiv.appendChild(ratingDiv);
 		enableStars();
