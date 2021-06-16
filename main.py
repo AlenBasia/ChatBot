@@ -89,12 +89,12 @@ def rating_request(myrate,response):
 #create a bot
 chatbot = ChatBot("MSc's Guru",
                   storage_adapter='mybot.mysql_storage.SQLStorageAdapter',
-                  #preprocessors=['mybot.mypreprocessors.final_sigma','chatterbot.preprocessors.clean_whitespace','mybot.mypreprocessors.remove_questionmark'],
+                  preprocessors=['mybot.mypreprocessors.final_sigma','chatterbot.preprocessors.clean_whitespace','mybot.mypreprocessors.remove_questionmark'],
                   logic_adapters=[
                 {
                     'import_path': 'mybot.mybest_match.BestMatch',
                     'response_selection_method': get_best_rated_response,
-                    'default_response': "Συγνώμη δεν σας καταλαβαίνω. Δοκίμαστε διατυπώσετε την ερώτησή σας με διαφορετικό τρόπο."
+                    'default_response': "Συγνώμη δεν σας καταλαβαίνω. Δοκιμάστε να διατυπώσετε την ερώτησή σας με διαφορετικό τρόπο."
                 }
                 ],
                   read_only = True
@@ -158,7 +158,7 @@ def home():
 def processJson():
     #get data
     data = request.get_json()
-    typeOfRequest = data['type'] #type of request quuestion | rating
+    typeOfRequest = data['type'] #type of request question | rating
     inputRequest = data['input'] #input value
     inputID = data['id'] #if user rated there will be an id of the answer he rated
     myresponse = "None"
