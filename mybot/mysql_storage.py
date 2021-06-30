@@ -536,3 +536,85 @@ class SQLStorageAdapter(StorageAdapter):
             result = mystatement[0]['rates_counter']
 
         return result
+
+    ''' Admin Updates '''
+    def replaceAllAnswers(self, old, new):
+        '''
+        Replaces all old answers with the new.
+        
+        :param old: The answers to be replaced
+        :type old: String
+        
+        :param new: The new answer
+        :type new: String
+        '''
+        Statement = self.get_model('statement')
+        
+        session = self.Session()
+        
+        #Replace all texts that are like "old" with the "new"
+        session.execute('UPDATE statement SET text = "'+ str(new) +'" WHERE text = "'+ str(old) +'"')
+        session.commit() #important
+        
+        #Change bigrams
+        oldbi = self.tagger.get_bigram_pair_string(old)
+        newbi = self.tagger.get_bigram_pair_string(new)
+        
+        #Replace all texts that are like "old" with the "new"
+        session.execute('UPDATE statement SET search_text = "'+ str(newbi) +'" WHERE search_text = "'+ str(oldbi) +'"')
+        session.commit() #important
+        
+        return True
+        
+    def replaceAnswersByID(self, id, new):
+        '''
+        Replaces the answer that has id=id with the new answer.
+        
+        :param id: The id of the answer
+        :type id: Integer
+        
+        :param new: The new answer
+        :type new: String
+        '''
+        Statement = self.get_model('statement')
+        
+        session = self.Session()
+        
+        #Replace all texts that are like "old" with the "new"
+        session.execute('UPDATE statement SET text = "'+ str(new) +'" WHERE id = "'+ str(id) +'"')
+        session.commit() #important
+        
+        #Change bigram
+        newbi = self.tagger.get_bigram_pair_string(new)
+        
+        #Replace all texts that are like "old" with the "new"
+        session.execute('UPDATE statement SET search_text = "'+ str(newbi) +'" WHERE id = "'+ str(id) +'"')
+        session.commit() #important
+        
+        return True
+        
+    def getAllAnswers(self):
+        '''
+        Returns list with all Statements
+        '''
+        Statement = self.get_model('statement')
+        
+        session = self.Session()
+        
+        
+        data = session.execute('SELECT id, text, in_response_to FROM statement WHERE in_response_to IS NOT NULL').fetchall()
+        session.close()
+        return data
+        
+    def getAllAnswersLess(self):
+        '''
+        Returns list with all answers redundant
+        '''
+        Statement = self.get_model('statement')
+        
+        session = self.Session()
+        
+        
+        data = session.execute('SELECT id, text, in_response_to FROM statement WHERE in_response_to IS NOT NULL GROUP BY text ORDER BY id').fetchall()
+        session.close()
+        return data

@@ -3,8 +3,10 @@ from mybot.mysql_storage import SQLStorageAdapter
 from chatterbot.trainers import ChatterBotCorpusTrainer
 from mybot.myresponse_selection import get_best_rated_response
 
-from flask import Flask, render_template, request, Markup, redirect, url_for, jsonify
+from flask import Flask, render_template, request, Markup, redirect, url_for, jsonify, session, redirect, url_for
 import json
+
+from admin.admins import Administration
 
 import logging
 from log.mylogger import *
@@ -122,36 +124,12 @@ texts = []
 
 #UserInterface
 app = Flask(__name__)
+app.secret_key = 'autoeinaigiatasessionskaiprepeinaeinaikrufo'
 
 #home route
 @app.route("/")
 def home():
     return render_template("index.html")
-
-''' if request.method == "POST":
-        #if user submitted question
-        if request.form["userin"]:
-            #get user input from post request
-            myrequest = request.form["userin"]
-            #generate response
-            response = question_request(myrequest)
-            #add userinput and response to texts
-            temptext = []
-            temptext.append(response[0])
-            temptext.append(Markup(response[1]))
-            texts.append(temptext)
-        if request.form.get('rate',''):
-            getrate = request.form.get('rate','')
-            print(getrate)
-'''
-
-
-#All routes redirect to home
-#@app.route('/', defaults={'path': ''})
-#@app.route("/<path:path>")
-#def redirectToHome(path):
-#    return redirect(url_for('home'))
-
 
 #JsonRequests
 @app.route('/processjson', methods=['POST'])
@@ -178,7 +156,63 @@ def processJson():
     
     return json.dumps({'response':myresponse,'id':myid}), 200, {'ContentType':'application/json'}
 
-#jsonify({'response':myresponse,'id':myid})
+#ADMIN SECTION
+alladmins = []
+alladmins.append(Administration(user='admin',passw='admin'))
+
+@app.route("/admin")
+def admin():
+    if not session.get('user'):
+        return redirect(url_for('login'))
+    data = chatbot.storage.getAllAnswers()
+    data_less = chatbot.storage.getAllAnswersLess()
+    return render_template("admin.html", less=data_less,data=data)
+    
+@app.route("/login")
+def login():
+    return render_template("login.html")
+    
+@app.route('/userauth', methods=['POST'])
+def userauth():
+    
+    session.pop('user', None)
+    
+    #get data
+    data = request.get_json()
+    typeOfRequest = data['type'] #type of request auth
+    user = data['user'] #username
+    passw = data['passw'] #password
+    
+    #check if user exists and has that passw
+    isuser = [i for i in alladmins if i.user == user][0]
+    if isuser and isuser.passw==passw:
+        session['user']=isuser.user
+        return json.dumps({'login': True}), 200, {'ContentType':'application/json'}
+    
+    return json.dumps({'login': False}), 200, {'ContentType':'application/json'}
+    
+@app.route('/logout')
+def logout():
+    session.pop('user', None)
+    return redirect(url_for('home'), code=302)
+    
+#JsonUpdateRequest from an admin
+@app.route('/updatejson', methods=['POST'])
+def updatejson():
+    #get data
+    data = request.get_json()
+    typeOfRequest = data['type'] #type of request update
+    old = data['old'] #old text
+    ID = data['id'] #id of the text in db
+    changeall = data['all'] #replace all related
+    new = data['newtext'] #new text
+    if changeall:
+        chatbot.storage.replaceAllAnswers(old, new)
+    else:
+        chatbot.storage.replaceAnswersByID(ID, new)
+    
+    
+    return json.dumps({'response': True}), 200, {'ContentType':'application/json'}
 
 
 if __name__ == "__main__":

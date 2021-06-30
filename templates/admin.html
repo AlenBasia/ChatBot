@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>MSc's Guru - Admins</title>
+<meta charset="UTF-8">
+<meta name="author" content="Alen Basia">
+<meta name="description" content="MSc's Guru ChatBot">
+<meta name="keywords" content="ChatBot,Chatterbot,Thesis,MastersBot">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+
+<!--GoogleFonts-->
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
+<script src="https://code.jquery.com/jquery-3.2.1.js"
+		integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+		crossorigin="anonymous">
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header>
+	<a href="#"><h1>O Γκουρου του Μεταπτυχιακου</h1><h5>(For Admins)</h5></a>
+	<a href="/logout" class='logoutbtn'>Logout</a>
+	
+</header>
+
+<!-- MAIN BODY -->
+<section class="mainbody">
+
+<section class="myform">
+	<form onsubmit="formsubmit()">
+		<label for="oldtext">Old Answer:</label>
+		<textarea id="oldtext" rows="4" cols="100" placeholder="Select the answer you want to change from the table below." disabled readonly></textarea><br>
+		<label for="oldid">Id:</label>
+		<input type="number" id="oldid" disabled>
+		<label for="allchange" style="margin-left:30px">Change all related answers:</label>
+		<input type="checkbox" id="allchange" onclick="toggleId()" checked><br>
+		<label for="newtext">New Answer:</label>
+		<textarea id="newtext" rows="4" cols="100" placeholder="Type the new answer here..."></textarea><br>
+		<input type="submit" id="submitform" value="Sumbit changes">
+	</form>
+</section>
+
+
+<section class=tablecontainer>
+	<input type="checkbox" id="showless" title="This will show every answer once!" onclick="checkboxclick()" checked>
+	<label for="showless" style="">Show Less</label>
+
+<script>
+	function toggleId(){
+		var checkBox = document.getElementById("allchange");
+		var idholder = document.getElementById("oldid");
+		if (checkBox.checked == true){
+			idholder.disabled = true;
+		}else{
+			idholder.disabled = false;
+		}
+	}
+	
+	function checkboxclick() {
+		// Get the checkbox
+		var checkBox = document.getElementById("showless");
+		// Get the tablediv
+		var mytablediv = document.getElementById("mytablediv");
+
+		// If the checkbox is checked, display less
+		if (checkBox.checked == true){
+			var mytable = document.getElementById("mytable");
+			mytable.remove();
+			mytablediv.innerHTML += '<table id="mytable"><tr><th>ID</th><th>Answer</th><th>In Response To</th></tr>{% for item in less %}<tr onclick="rowClick(this)"><td>{{item[0]}}</td><td>{{item[1]}}</td><td>{{item[2]}}</td></tr>{% endfor %}</table>';
+		} else {
+			var mytable = document.getElementById("mytable");
+			mytable.remove();
+			mytablediv.innerHTML += '<table id="mytable"><tr><th>ID</th><th>Answer</th><th>In Response To</th></tr>{% for item in data %}<tr onclick="rowClick(this)"><td>{{item[0]}}</td><td>{{item[1]}}</td><td>{{item[2]}}</td></tr>{% endfor %}</table>';
+		}
+	}
+	
+	function rowClick(index){
+		var mytable = document.getElementById("mytable");
+		var myold = document.getElementById("oldtext");
+		myold.value = mytable.rows[index.rowIndex].cells[1].innerHTML;
+		var myoldid = document.getElementById("oldid");
+		myoldid.value = mytable.rows[index.rowIndex].cells[0].innerHTML;
+	}
+</script>
+<div class="tablediv" id="mytablediv">
+	<table id="mytable">
+	<tr>
+		<th>ID</th>
+		<th>Answer</th>
+		<th>In Response To</th>
+	</tr>
+	{% for item in less %}
+	<tr onclick="rowClick(this)">
+		<td>{{item[0]}}</td>
+		<td>{{item[1]}}</td>
+		<td>{{item[2]}}</td>
+	</tr>
+	{% endfor %}
+	</table>
+</div>
+</section>
+
+</section>
+
+</body>
+</html>
+
+<!-- Communicate with the server -->
+<script>
+	
+	function formsubmit() {
+		var oldtext = document.getElementById("oldtext").value;
+		var oldid = document.getElementById("oldid").value;
+		var checkBox = document.getElementById("allchange"); 
+		var newtext = document.getElementById("newtext").value;
+		
+		var packToSend = {};
+		if (checkBox.checked==true){
+			packToSend = {type: "update", old: oldtext, id: oldid, all: true, newtext: newtext};}
+		else{
+			packToSend = {type: "update", old: oldtext, id: oldid, all: false, newtext: newtext};
+		}
+		
+		//send json pack
+		$.ajax({
+        type: "POST", 
+        url: "updatejson",
+        data : JSON.stringify(packToSend),
+        contentType: "application/json",
+		success: function(result)
+		{alert("Pack processed successfully!");
+		location.replace("/admin")},
+		error: function(err)
+		{alert("Packet didnt reach the server.")},
+		});
+		
+	}
+	
+</script>

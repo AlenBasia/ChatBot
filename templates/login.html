@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>MSc's Guru - Admins</title>
+<meta charset="UTF-8">
+<meta name="author" content="Alen Basia">
+<meta name="description" content="MSc's Guru ChatBot">
+<meta name="keywords" content="ChatBot,Chatterbot,Thesis,MastersBot">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+
+<!--GoogleFonts-->
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
+<script src="https://code.jquery.com/jquery-3.2.1.js"
+		integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+		crossorigin="anonymous">
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header>
+	<a href="#"><h1>O Γκουρου του Μεταπτυχιακου</h1><h5>(For Admins)</h5></a>
+	
+</header>
+
+<!-- MAIN BODY -->
+<section class="mainbody">
+
+<section class="myform">
+	<form onsubmit="formsubmit()">
+		<label for="user">Username:</label>
+		<input type="text" id="user"><br>
+		<label for="passw">Password:</label>
+		<input type="password" id="passw"><br>
+		<input type="submit" id="submitform" value="Login">
+	</form>
+</section>
+
+</section>
+
+</body>
+</html>
+
+<!-- Communicate with the server -->
+<script>
+	
+	function formsubmit() {
+		var user = document.getElementById("user").value;
+		var passw = document.getElementById("passw").value;		
+		var packToSend = {type: "auth", user: user, passw: passw};
+		
+		//send json pack
+		$.ajax({
+        type: "POST", 
+        url: "userauth",
+        data : JSON.stringify(packToSend),
+        contentType: "application/json",
+		success: function(result){
+		result = JSON.parse(result)
+		if (result.login == false){
+			alert("Login failed!");}else{
+			window.location.replace('/admin');}
+		},
+		error: function(err){
+		alert("Can not communicate with the server.")},
+		});
+		
+	}
+	
+</script>
